@@ -1,0 +1,48 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    color-scheme: dark;
+}
+
+body {
+    height: 100svh;
+    padding-top: 1rem;
+}
+
+h1 {
+    text-align: center;
+}
+
+form {
+    --size: 200px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    display: grid;
+    gap: 4px;
+    width: calc(var(--size) * 2);
+    height: var(--size);
+    border: 1px solid gray;
+    padding: 1rem;
+    border-radius: 5px;
+}
+
+.form-control { 
+    display: flex;
+    flex-direction: column;
+}
+
+input {
+    border-radius: 5px;
+    border: none;
+    padding: 1rem;
+}
+
+input:focus {
+    outline: none;
+}
