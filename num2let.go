@@ -12,14 +12,7 @@ import (
 func main() { 
     if len(os.Args) > 1 {
 	args := os.Args[1:]
-	for _, elt := range args {
-	    number,err := strconv.ParseInt(elt,10,0)
-	    if err != nil {
-		fmt.Printf("ERROR: %s\n",err)
-		continue
-	    }
-	    fmt.Printf("%s\n",simpleNumber(int(number)))
-	}
+	parseInput(args)
 	os.Exit(0)
     }
     reader := bufio.NewReader(os.Stdin)
@@ -33,17 +26,27 @@ func main() {
 	    continue
 	} 
 	values := strings.Split(input, " ")
-	for _,elt := range values {
-	    if strings.Contains(elt,"\n") {
-		elt = strings.TrimSuffix(elt,"\n")
-	    }
-	    number, err := strconv.ParseInt(elt,10,0)
-	    if err != nil {
-		fmt.Printf("ERROR: %s\n",err)
-		os.Exit(9)
-	    }
-	    fmt.Printf("%s\n",simpleNumber(int(number)))
+	parseInput(values)
+    }
+}
+
+func parseInput(values []string) {
+    for _, elt := range values {
+	// When values come from a pipe the last 
+	// number as a "\n" attach to it.
+	if strings.Contains(elt,"\n") {
+	    elt = strings.TrimSuffix(elt,"\n")
 	}
+	number,err := strconv.ParseInt(elt,10,0)
+	if err != nil {
+	    fmt.Printf("ERROR: %s\n",err)
+	    continue
+	}
+	if number < 0 {
+	    fmt.Println("Negative number are not supported")
+	    continue
+	}
+	fmt.Printf("%s\n",simpleNumber(int(number)))
     }
 }
 
